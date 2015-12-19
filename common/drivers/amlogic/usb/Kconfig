@@ -1,0 +1,44 @@
+
+menu "USB Support"
+
+config AMLOGIC_USB_3
+	tristate "Amlogic USB 3.0 controller support"
+	select CONFIG_USB_DWC3
+	select CONFIG_USB_XHCI_HCD
+	select CONFIG_USB_ARCH_HAS_XHCI
+	select CONFIG_USB_PHY
+	select CONFIG_AMLOGIC_USB2PHY
+  select CONFIG_AMLOGIC_USB3PHY
+	depends on USB
+	help
+	   dwc3 USB host controller
+
+config AMLOGIC_USB
+	tristate "Amlogic USB controller support"
+	select USB_DWC_OTG_HCD
+	select USB_HOST_ELECT_TEST
+	select OF_LM
+	depends on USB
+	help
+	   dwc_otg USB host controller
+
+config USB_DWC_OTG_HCD
+	bool "USB Host controller dwc_otg support"
+	depends on AMLOGIC_USB
+	
+config USB_HOST_ELECT_TEST
+	bool
+	help
+	    Enable this config to support USB High speed electric test.
+
+#config DWC_USB_NAK_IN_TIMER
+#	bool "Disable DWC OTG USB NAK ISR"
+#	depends on USB_DWC_OTG_HCD
+#	default n
+#	help
+#		[y]Enable this config to disable DWC OTG USB NAK interrupt handler.
+#			 The handler is moved to timer.
+#		[n]Disable this config to let NAK handler in interrupt.
+#		Don't change this if you don't know what it is.
+
+endmenu
